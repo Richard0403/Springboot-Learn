@@ -1,4 +1,3 @@
-
 **一、项目基本创建**
 
 Idea--> New Project -->Spring Initializr -->设置包名/Type(Moven or Gradle) -->选模块(Security/Web/JPA/Mysql/JDBC/Redis) -->finish
