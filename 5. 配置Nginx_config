@@ -106,3 +106,60 @@ http {
 #		proxy      on;
 #	}
 #}
+
+
+
+#代理配置
+server {
+        listen 80;
+        server_name localhost;
+        location / {
+            root /home/vue;
+            index index.html index.htm;
+        }
+        error_page 500 502 503 504 /50x.html;
+        location = /50x.html {
+            root html;
+        }
+ }
+
+server {
+        listen 80;
+        server_name love.*;
+        location / {
+            root /home/love;
+            index index.html index.htm;
+        }
+        error_page 500 502 503 504 /50x.html;
+        location = /50x.html {
+            root html;
+        }
+ }
+
+server {
+    	listen 80;
+    	server_name api.*;
+    	location / {
+		proxy_redirect off;
+        	proxy_set_header Host $host;
+        	proxy_set_header X-Real-IP $remote_addr;
+        	proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        	proxy_pass http://45.78.36.50:8080;
+    	}
+    	access_log logs/api_access.log;
+	error_log logs/api_error.log;
+}
+
+server {
+    	listen 80;
+    	server_name intelij.*;
+    	location / {
+		proxy_redirect off;
+        	proxy_set_header Host $host;
+        	proxy_set_header X-Real-IP $remote_addr;
+        	proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        	proxy_pass http://45.78.36.50:1017;
+    	}
+    	access_log logs/intelij_access.log;
+	error_log logs/intelij_error.log;
+}
